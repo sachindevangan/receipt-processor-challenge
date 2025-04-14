@@ -2,6 +2,10 @@ package com.example.receipt_processor_challenge.model;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +19,14 @@ public class Receipt {
     @Pattern(regexp = "^[\\w\\s\\-&]+$", message = "Invalid retailer name format")
     private String retailer;
 
-    @NotBlank(message = "Purchase date is required")
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Invalid date format (YYYY-MM-DD expected)")
-    private String purchaseDate;
+    @NotNull(message = "Purchase date is required")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate purchaseDate;
 
-    @NotBlank(message = "Purchase time is required")
-    @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Invalid time format (HH:mm expected)")
-    private String purchaseTime;
+    @NotNull(message = "Purchase time is required")
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime purchaseTime;
+
 
     @Valid
     @NotEmpty(message = "Receipt must have at least one item")
