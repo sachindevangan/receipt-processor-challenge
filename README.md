@@ -21,17 +21,18 @@ This project is a RESTful API built with Spring Boot that processes receipts and
 
 ### Prerequisites
 
-- Java 17+
+- Java 21+
 - Maven 3.6+
+- Docker (if running via container)
 
 ###  Build the Project
 
 ```bash
-mvn clean install
+   mvn clean install
 ```
 ### Run the Application
 ```bash
-mvn spring-boot:run
+   mvn spring-boot:run
 ```
 
 The server will start on:
@@ -92,3 +93,22 @@ Response:
 |  7  | Time between 2–4 PM = +10 pts                                                |
 
 
+## Running with Docker
+
+If you're not using Go, Dockerization is required for submission.
+
+### Build Docker Image
+
+```bash
+   docker build -t receipt-processor .
+```
+###  Run the Docker Container
+
+```bash
+   docker run -p 8080:8080 receipt-processor
+```
+
+### Once started, your service will be live at:
+```arduino
+ http://localhost:8080
+```
