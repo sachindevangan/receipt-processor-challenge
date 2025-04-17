@@ -95,7 +95,7 @@ Response:
 
 ## Running with Docker
 
-If you're not using Go, Dockerization is required for submission.
+Since this project is implemented in Java (not Go), it includes Docker support as required for submission.
 
 ### Build Docker Image
 
