@@ -3,6 +3,7 @@ package com.example.receipt_processor_challenge.controller;
 import com.example.receipt_processor_challenge.model.Receipt;
 import com.example.receipt_processor_challenge.repository.ReceiptRepository;
 import com.example.receipt_processor_challenge.service.ReceiptService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,23 +21,20 @@ public class ReceiptController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity<Map<String, String>> processReceipt(@RequestBody Receipt receipt) {
-        String id = repository.storeReceipt(receipt);
+    public ResponseEntity<Map<String, String>> processReceipt(@Valid @RequestBody Receipt receipt) {
+        String id = service.saveReceipt(receipt);
         return ResponseEntity.ok(Map.of("id", id));
     }
 
     @GetMapping("/{id}/points")
-    public ResponseEntity<?> getPoints(@PathVariable String id) {
-        Receipt receipt = repository.getReceipt(id);
-        if (receipt == null) {
-            return ResponseEntity.status(404).body(Map.of("error", "No receipt found for that ID."));
-        }
-        int points = service.calculatePoints(receipt);
+    public ResponseEntity<Map<String, Integer>> getPoints(@PathVariable String id) {
+        int points = service.calculatePoints(id);
         return ResponseEntity.ok(Map.of("points", points));
     }
 
     @GetMapping
     public ResponseEntity<Map<String, Receipt>> getAllReceipts() {
-        return ResponseEntity.ok(repository.getAllReceipts());
+        return ResponseEntity.ok(service.getAllReceipts());
     }
+
 }

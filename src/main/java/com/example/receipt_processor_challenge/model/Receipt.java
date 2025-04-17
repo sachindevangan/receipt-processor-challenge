@@ -16,8 +16,9 @@ import java.util.List;
 public class Receipt {
 
     @NotBlank(message = "Retailer cannot be empty")
-    @Pattern(regexp = "^[\\w\\s\\-&]+$", message = "Invalid retailer name format")
+    @Pattern(regexp = "^[\\w\\s&\\-'.!]+$", message = "Invalid retailer name format")
     private String retailer;
+
 
     @NotNull(message = "Purchase date is required")
     @JsonFormat(pattern = "yyyy-MM-dd")

@@ -22,6 +22,10 @@ public class ReceiptRepository {
         return receiptStore.get(id);
     }
 
+    public boolean exists(String id) {
+        return receiptStore.containsKey(id);
+    }
+
     public Map<String, Receipt> getAllReceipts() {
         return receiptStore;
     }
